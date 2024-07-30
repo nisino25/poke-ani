@@ -13,39 +13,37 @@
     <!-- notesan font  -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
 
-
     <title>ポケモンアニメ-タイムライン</title>
 </head>
 <body>
     <div id="app">
         <div id="main-content">
             <div class="timeline-bar"></div>
-            <div 
-                v-for="item in groupedAndSortedItems" 
+            <div v-for="item in groupedAndSortedItems" 
                 :key="item.releasedDate" 
-                class="timeline-card-container"
-            >
+                class="timeline-card-container">
                 <div class="timeline-card" :class="item.type + '-item'">
                     <template v-if="item.type == 'arc'">
                         <div>
-                            <p>{{ formatDate(item.releasedDate) }} </p>
-                            <span> {{ item.title }}<small v-if="item.type == 'arc'"><br>(全{{item.totalEps}}話)</small></span>
+                            <p>{{ formatDate(item.releasedDate) }}</p>
+                            <span>{{ item.title }}<small v-if="item.type == 'arc'"><br>(全{{item.totalEps}}話)</small></span>
                         </div>
                         <div>
                             <img :src="item.thumbnail">
                         </div>
                     </template>
                     <template v-else-if="item.type == 'movie'">
-                        <p>{{ formatDate(item.releasedDate) }} </p>
-                        <span> {{ item.title }}<small v-if="item.type == 'arc'">({{item.totalEps}}話)</small></span>
+                        <p>{{ formatDate(item.releasedDate) }}</p>
+                        <span>{{ item.title }}<small v-if="item.type == 'arc'">({{item.totalEps}}話)</small></span>
                         <img :src="item.thumbnail">
                     </template>
                     <template v-else-if="item.type == 'anime'">
                         <p>{{ formatDate(item.releasedDate) }} (第{{item.eps}}話)</p>
-                        <span> {{ item.title }}</span>
+                        <span>{{ item.title }}</span>
                     </template>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -62,12 +60,12 @@
                         {type: 'movie', title: 'セレビィ 時を超えた遭遇',releasedDate: 20010707, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx1119-Vz0ohBLmZ5uP.jpg'},
                         {type: 'movie', title: '水の都の護神 ラティアスとラティオス',releasedDate: 20020713, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1120-dSMPMrXYWlER.jpg'},
                         {type: 'movie', title: '七夜の願い星 ジラーチ',releasedDate: 20030719, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1121-yGTHBrWFTiBm.jpg'},
-                        {type: 'movie', title: '裂空の訪問者 デオキシス',releasedDate: 20040717, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1122-HCkAs0hqlJwK.jpg'},
-                        {type: 'movie', title: 'ミュウと波導の勇者 ルカリオ',releasedDate: 20050715, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b1526-ddJiHHGNikuY.png'},
-                        {type: 'movie', title: 'ポケモンレンジャーと蒼海の王子 マナフィ',releasedDate: 20060715, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx2201-1B1dS0NLJ3g5.jpg'},
+                        {type: 'movie', title: '裂空の訪問者 デオキシス',releasedDate: 20040717, thumbnail: 'https://m.media-amazon.com/images/S/pv-target-images/c43e522161e07cdb46ab97880d1662165e2115601c4380850935a9afdf85fa95.jpg'},
+                        {type: 'movie', title: 'ミュウと波導の勇者 ルカリオ',releasedDate: 20050715, thumbnail: 'https://m.media-amazon.com/images/I/A1PSUHvrwVL._AC_UF894,1000_QL80_.jpg'},
+                        {type: 'movie', title: 'ポケモンレンジャーと蒼海の王子 マナフィ',releasedDate: 20060715, thumbnail: 'https://cdn.base.geonet.jp/img/prod/600/154/97/1549714-01-01.jpg'},
                         {type: 'movie', title: 'ディアルガVSパルキアVSダークライ',releasedDate: 20070714, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx2847-BBQFXVTiy6H7.jpg'},
                         {type: 'movie', title: 'ギラティナと氷空の花束 シェイミ',releasedDate: 20080719, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx4026-HO7477AL7ym5.jpg'},
-                        {type: 'movie', title: 'アルセウス 超克の時空へ',releasedDate: 20090718, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b6178-QtPWVxYMR2V5.png'},
+                        {type: 'movie', title: 'アルセウス 超克の時空へ',releasedDate: 20090718, thumbnail: 'https://m.media-amazon.com/images/S/pv-target-images/858116c1a61c7efdfef0e54d3b9ef727de874f6f9a750b38b283282853833adb.jpg'},
                         {type: 'movie', title: '幻影の覇者 ゾロアーク',releasedDate: 20100710, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx7695-bgE6h1GXxWMG.jpg'},
                         {type: 'movie', title: 'ビクティニ',releasedDate: 20110716, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/9917.jpg'},
                         {type: 'movie', title: 'キュレムVS聖剣士 ケルディオ',releasedDate: 20120714, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx12671-q8KLIPmicj8R.jpg'},
@@ -75,10 +73,10 @@
                         {type: 'movie', title: '破壊の繭とディアンシー',releasedDate: 20140719, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b20644-qgK3C0fOFR8b.jpg'},
                         {type: 'movie', title: '光輪の超魔神フーパ',releasedDate: 20150718, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21266-5okUsTjY5nJl.png'},
                         {type: 'movie', title: 'ボルケニオンと機巧のマギアナ',releasedDate: 20160716, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21651-VtWkaIPJLDT1.png'},
-                        {type: 'movie', title: 'キミにきめた!',releasedDate: 20170715, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx98298-Yqus4jNiTNgf.png'},
-                        {type: 'movie', title: 'みんなの物語',releasedDate: 20180713, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx100744-Ys3JTKSHg3Gv.png'},
+                        {type: 'movie', title: 'キミにきめた!',releasedDate: 20170715, thumbnail: 'https://m.media-amazon.com/images/I/71Q1jwpi-nL._AC_UF1000,1000_QL80_.jpg'},
+                        {type: 'movie', title: 'みんなの物語',releasedDate: 20180713, thumbnail: 'https://m.media-amazon.com/images/I/91C2nxLKA8L._AC_UF1000,1000_QL80_.jpg'},
                         {type: 'movie', title: 'ミュウツーの逆襲 EVOLUTION',releasedDate: 20190712, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx106287-THH8DMCFuVNc.png'},
-                        {type: 'movie', title: 'ココ',releasedDate: 20201225, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx114564-Imh6m5Tejii6.jpg'},
+                        {type: 'movie', title: 'ココ',releasedDate: 20201225, thumbnail: 'https://m.media-amazon.com/images/I/7105FdNV1QL._AC_UF1000,1000_QL80_.jpg'},
                     ],
                     animeEpisodes: [
                         {type: 'anime', eps: 54,totalEps: 54, title: 'けいさつけんガーディ', releasedDate: 19980716},
@@ -106,13 +104,14 @@
                         {type: 'anime', eps: 49,totalEps: 1146, title: 'コハルと不思議な不思議なイーブイ!', releasedDate: 20201211},
                     ],
                     arcs:[
-                        {type: 'arc',title: "無印",releasedDate:19970401, totalEps: 274,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b527-D5lSOs3RuY1A.png'},
-                        {type: 'arc',title: "アドバンスジェネレーション",releasedDate:20021121, totalEps: 192,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1564-1KniCPyGiu0W.png'},
+                        {type: 'arc',title: "無印",releasedDate:19970401, totalEps: 116,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b527-D5lSOs3RuY1A.png'},
+                        {type: 'arc',title: "無印-ジョウト",releasedDate:19981014, totalEps: 158,thumbnail: 'https://stat.ameba.jp/user_images/20180318/06/nanashi0712/59/fc/j/o0426060014151672059.jpg'},
+                        {type: 'arc',title: "アドバンスジェネレーション",releasedDate:20021121, totalEps: 192,thumbnail: 'https://img.discas.net/img/jacket/081/775/r081775662L.jpg'},
                         {type: 'arc',title: "ダイヤモン＆パール",releasedDate: 20060928, totalEps: 193,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1565-PBe4mvGt36eg.png'},
                         {type: 'arc',title: "ベストウィッシュ",releasedDate: 20100923, totalEps: 133,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/9107.jpg'},
                         {type: 'arc',title: "XY",releasedDate: 20131017, totalEps: 142,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx19291-jwGqfWIXPtGA.png'},
                         {type: 'arc',title: "サン＆ムーン",releasedDate: 20161117, totalEps: 146,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx97634-9pF5dOufTtRC.png'},
-                        {type: 'arc',title: "新無印",releasedDate: 20191117, totalEps: 157,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx112153-LK1lpFz3vlvl.png'},
+                        {type: 'arc',title: "新無印",releasedDate: 20191117, totalEps: 157,thumbnail: 'https://i.pinimg.com/736x/f7/aa/24/f7aa24850bf5490d8224ed8e67130338.jpg'},
                         {type: 'arc',title: "リコとロイ",releasedDate:20230414 , totalEps: 60,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx158871-FmWU8dacXDiA.jpg'},
                     ],
                 };
@@ -128,10 +127,8 @@
                     return `${str.slice(0, 4)}-${str.slice(4, 6)}-${str.slice(6, 8)}`;
                 },
             },
-            async mounted(){
-
-            },
         });
+
 
 
         app.mount('#app');
@@ -188,7 +185,7 @@
 
         .timeline-card img{
             display: block;
-            max-height: 150px;
+            max-height: 175px;
             margin: 10px auto;
             border-radius: 5px;
         }
