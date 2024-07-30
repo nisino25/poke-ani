@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- notesan font  -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <title> Game</title>
+</head>
+<body>
+    <div id="app">
+        <div id="main-content">
+            <div class="timeline-bar"></div>
+            <div 
+                v-for="item in groupedAndSortedItems" 
+                :key="item.releasedDate" 
+                class="timeline-card-container"
+            >
+                <div class="timeline-card" :class="item.type + '-item'">
+                    <template v-if="item.type == 'arc'">
+                        <div>
+                            <p>{{ formatDate(item.releasedDate) }} </p>
+                            <span> {{ item.title }}<small v-if="item.type == 'arc'"><br>(全{{item.totalEps}}話)</small></span>
+                        </div>
+                        <div>
+                            <img :src="item.thumbnail">
+                        </div>
+                    </template>
+                    <template v-else-if="item.type == 'movie'">
+                        <p>{{ formatDate(item.releasedDate) }} </p>
+                        <span> {{ item.title }}<small v-if="item.type == 'arc'">({{item.totalEps}}話)</small></span>
+                        <img :src="item.thumbnail">
+                    </template>
+                    <template v-else-if="item.type == 'anime'">
+                        <p>{{ formatDate(item.releasedDate) }} (第{{item.eps}}話)</p>
+                        <span> {{ item.title }}</span>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <script type="module">
+        const app = Vue.createApp({
+            data() {
+                return {
+                    movies:[
+                        {type: 'movie', title: 'ミュウツーの逆襲', releasedDate: 19980718, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx528-HIz7955MvEnN.jpg'},
+                        {type: 'movie', title: '幻のポケモン ルギア爆誕',releasedDate: 19990719, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/1117.jpg'},
+                        {type: 'movie', title: '結晶塔の帝王 ENTEI',releasedDate: 20000708, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/54222-yXfVfGFVP5tn.jpg'},
+                        {type: 'movie', title: 'セレビィ 時を超えた遭遇',releasedDate: 20010707, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx1119-Vz0ohBLmZ5uP.jpg'},
+                        {type: 'movie', title: '水の都の護神 ラティアスとラティオス',releasedDate: 20020713, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1120-dSMPMrXYWlER.jpg'},
+                        {type: 'movie', title: '七夜の願い星 ジラーチ',releasedDate: 20030719, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1121-yGTHBrWFTiBm.jpg'},
+                        {type: 'movie', title: '裂空の訪問者 デオキシス',releasedDate: 20040717, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1122-HCkAs0hqlJwK.jpg'},
+                        {type: 'movie', title: 'ミュウと波導の勇者 ルカリオ',releasedDate: 20050715, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b1526-ddJiHHGNikuY.png'},
+                        {type: 'movie', title: 'ポケモンレンジャーと蒼海の王子 マナフィ',releasedDate: 20060715, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx2201-1B1dS0NLJ3g5.jpg'},
+                        {type: 'movie', title: 'ディアルガVSパルキアVSダークライ',releasedDate: 20070714, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx2847-BBQFXVTiy6H7.jpg'},
+                        {type: 'movie', title: 'ギラティナと氷空の花束 シェイミ',releasedDate: 20080719, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx4026-HO7477AL7ym5.jpg'},
+                        {type: 'movie', title: 'アルセウス 超克の時空へ',releasedDate: 20090718, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b6178-QtPWVxYMR2V5.png'},
+                        {type: 'movie', title: '幻影の覇者 ゾロアーク',releasedDate: 20100710, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx7695-bgE6h1GXxWMG.jpg'},
+                        {type: 'movie', title: 'ビクティニ',releasedDate: 20110716, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/9917.jpg'},
+                        {type: 'movie', title: 'キュレムVS聖剣士 ケルディオ',releasedDate: 20120714, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx12671-q8KLIPmicj8R.jpg'},
+                        {type: 'movie', title: '神速のゲノセクト ミュウツー覚醒',releasedDate: 20130713, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/16680.jpg'},
+                        {type: 'movie', title: '破壊の繭とディアンシー',releasedDate: 20140719, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b20644-qgK3C0fOFR8b.jpg'},
+                        {type: 'movie', title: '光輪の超魔神フーパ',releasedDate: 20150718, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21266-5okUsTjY5nJl.png'},
+                        {type: 'movie', title: 'ボルケニオンと機巧のマギアナ',releasedDate: 20160716, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21651-VtWkaIPJLDT1.png'},
+                        {type: 'movie', title: 'キミにきめた!',releasedDate: 20170715, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx98298-Yqus4jNiTNgf.png'},
+                        {type: 'movie', title: 'みんなの物語',releasedDate: 20180713, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx100744-Ys3JTKSHg3Gv.png'},
+                        {type: 'movie', title: 'ミュウツーの逆襲 EVOLUTION',releasedDate: 20190712, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx106287-THH8DMCFuVNc.png'},
+                        {type: 'movie', title: 'ココ',releasedDate: 20201225, thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx114564-Imh6m5Tejii6.jpg'},
+                    ],
+                    animeEpisodes: [
+                        {type: 'anime', eps: 54,totalEps: 54, title: 'けいさつけんガーディ', releasedDate: 19980716},
+                        {type: 'anime', eps: 104,totalEps: 104, title: 'ピカチュウVSニャース!?', releasedDate: 19990715},
+                        {type: 'anime', eps: 155,totalEps: 155, title: 'リングマでドッキリ!!', releasedDate: 20000706},
+                        {type: 'anime', eps: 205,totalEps: 205, title: 'カクレオンはどこにいる!? みえないポケモンにだいこんらん!', releasedDate: 20010705},
+                        {type: 'anime', eps: 256,totalEps: 256, title: 'リュウグウジム! みずのなかでバトルだぜ!', releasedDate: 20020711},
+                        {type: 'anime', eps: 34,totalEps: 310, title: 'はじめてのポケモンで大パニック!!', releasedDate: 20030717},
+                        {type: 'anime', eps: 85,totalEps: 361, title: 'ヒワマキジム! 大空の戦い!!', releasedDate: 20040715},
+                        {type: 'anime', eps: 134,totalEps: 410, title: 'オツキミやま! ピィとピッピとピクシーと!', releasedDate: 20050707},
+                        {type: 'anime', eps: 183,totalEps: 459, title: 'エイパムと王様!', releasedDate: 20060706},
+                        {type: 'anime', eps: 39,totalEps: 507, title: 'ピカチュウのおるすばん!', releasedDate: 20070705},
+                        {type: 'anime', eps: 86,totalEps: 554, title: 'ヨスガコレクション! ポケモンスタイリストへの道!!', releasedDate: 20080710},
+                        {type: 'anime', eps: 135,totalEps: 603, title: '全員参戦! ポケモンハッスル!!', releasedDate: 20090709},
+                        {type: 'anime', eps: 183,totalEps: 651, title: '開幕！シンオウリーグ・スズラン大会!!', releasedDate: 20100701},
+                        {type: 'anime', eps: 39,totalEps: 700, title: '全員集合! ドンバトル!!', releasedDate: 20110707},
+                        {type: 'anime', eps: 87,totalEps: 748, title: 'イワークの島でサバイバル!', releasedDate: 20120705},
+                        {type: 'anime', eps: 133,totalEps: 794, title: '光る円盤! オーベムたちの街!!', releasedDate: 20130704},
+                        {type: 'anime', eps: 34,totalEps: 840, title: '森のチャンピオン! ルチャブル登場!!', releasedDate: 20140710},
+                        {type: 'anime', eps: 81,totalEps: 889, title: '時をかけるサトシ! ロトムの願い!', releasedDate: 20150709},
+                        {type: 'anime', eps: 126,totalEps: 935, title: 'メガジュカイン対ライチュウ! 経験値いただきます!!', releasedDate: 20160707},
+                        {type: 'anime', eps: 33,totalEps: 984, title: 'ヨワシ強し、池のぬし!', releasedDate: 20170706},
+                        {type: 'anime', eps: 81,totalEps: 1032, title: 'アローラの若き炎! ロイヤルサトシ誕生!!', releasedDate: 20180705},
+                        {type: 'anime', eps: 129,totalEps: 1080, title: '	大乱闘! バトルロイヤル151!!', releasedDate: 20190707},
+                        {type: 'anime', eps: 49,totalEps: 1146, title: 'コハルと不思議な不思議なイーブイ!', releasedDate: 20201211},
+                    ],
+                    arcs:[
+                        {type: 'arc',title: "無印",releasedDate:19970401, totalEps: 274,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b527-D5lSOs3RuY1A.png'},
+                        {type: 'arc',title: "アドバンスジェネレーション",releasedDate:20021121, totalEps: 192,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1564-1KniCPyGiu0W.png'},
+                        {type: 'arc',title: "ダイヤモン＆パール",releasedDate: 20060928, totalEps: 193,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1565-PBe4mvGt36eg.png'},
+                        {type: 'arc',title: "ベストウィッシュ",releasedDate: 20100923, totalEps: 133,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/9107.jpg'},
+                        {type: 'arc',title: "XY",releasedDate: 20131017, totalEps: 142,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx19291-jwGqfWIXPtGA.png'},
+                        {type: 'arc',title: "サン＆ムーン",releasedDate: 20161117, totalEps: 146,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx97634-9pF5dOufTtRC.png'},
+                        {type: 'arc',title: "新無印",releasedDate: 20191117, totalEps: 157,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx112153-LK1lpFz3vlvl.png'},
+                        {type: 'arc',title: "リコとロイ",releasedDate:20230414 , totalEps: 60,thumbnail: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx158871-FmWU8dacXDiA.jpg'},
+                    ],
+                };
+            },
+            computed: {
+                groupedAndSortedItems() {
+                    return [...this.movies, ...this.animeEpisodes, ...this.arcs].sort((a, b) => a.releasedDate - b.releasedDate);
+                }
+            },
+            methods: {
+                formatDate(date) {
+                    const str = date.toString();
+                    return `${str.slice(0, 4)}-${str.slice(4, 6)}-${str.slice(6, 8)}`;
+                },
+            },
+            async mounted(){
+
+            },
+        });
+
+
+        app.mount('#app');
+    </script>
+    <style>
+       body {
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        #main-content {
+            width: 97.5%;
+            max-width: 400px;
+            margin: auto;
+            position: relative;
+        }
+
+        .timeline-bar {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #000;
+            z-index: -1;
+
+            transform: translateX(-50%);
+
+        }
+
+        .timeline-card-container{
+            position: relative;
+            width: 100%;
+        }
+
+        .timeline-card {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            width: calc(50% - 20px);  /* Adjusted width accounting for padding */
+
+            
+            background-color: lightblue;
+
+            box-sizing: border-box;
+
+            
+            font-size: .8em;
+            text-align: left;
+        }
+
+        .timeline-card p{
+            margin: 5px auto;
+        }
+
+        .timeline-card img{
+            display: block;
+            max-height: 150px;
+            margin: 10px auto;
+            border-radius: 5px;
+        }
+
+        .anime-item {
+            background-color: lightgrey;
+            text-align: right;
+            margin-left: auto;    
+        }
+
+        .arc-item {
+            background-color: lightcoral;
+
+            width: 100%;
+
+            position: relative;
+            z-index: 5;
+
+            font-size: 1em;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .timeline-card-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 15px;
+            aspect-ratio: 1;
+            background: #000;
+            border-radius: 50%;
+
+            transform: translate(-50%,-50%);
+
+            z-index: 0;
+        }
+    </style>
+</body>
+</html>
